@@ -1,4 +1,4 @@
-import 'package:first_app/gradient_container.dart';
+import 'package:random_dice/gradient_container.dart';
 import 'package:flutter/material.dart';
 
 void main() {
