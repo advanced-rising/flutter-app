@@ -12,13 +12,13 @@ class _HomeScreenState extends State<HomeScreen> {
   static const twentyFiveMinutes = 25 * 60;
   int totalSeconds = twentyFiveMinutes;
   bool isRunning = false;
-  int totlaPomodoros = 0;
+  int totalPomodoros = 0;
   late Timer timer;
 
   void onTick(Timer timer) {
     if (totalSeconds == 0) {
       setState(() {
-        totlaPomodoros = totlaPomodoros + 1;
+        totalPomodoros = totalPomodoros + 1;
         isRunning = false;
         totalSeconds = twentyFiveMinutes;
       });
@@ -44,6 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
     timer.cancel();
     setState(() {
       isRunning = false;
+    });
+  }
+
+  void onResetPressed() {
+    setState(() {
+      totalSeconds = twentyFiveMinutes;
+      isRunning = false;
+      timer.cancel();
+      totalPomodoros = 0;
     });
   }
 
@@ -73,18 +82,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Flexible(
-            flex: 3,
-            child: Center(
-              child: IconButton(
-                iconSize: 120,
-                color: Theme.of(context).cardColor,
-                onPressed: isRunning ? onPausePressed : onStartPressed,
-                icon: Icon(isRunning
-                    ? Icons.pause_circle_outline
-                    : Icons.play_circle_outline),
-              ),
-            ),
-          ),
+              flex: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: IconButton(
+                      iconSize: 120,
+                      color: Theme.of(context).cardColor,
+                      onPressed: isRunning ? onPausePressed : onStartPressed,
+                      icon: Icon(isRunning
+                          ? Icons.pause_circle_outline
+                          : Icons.play_circle_outline),
+                    ),
+                  ),
+                  Center(
+                    child: IconButton(
+                      iconSize: 40,
+                      color: Theme.of(context).cardColor,
+                      onPressed: onResetPressed,
+                      icon: const Icon(Icons.replay),
+                    ),
+                  ),
+                ],
+              )),
           Flexible(
             flex: 1,
             child: Row(
@@ -107,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          '$totlaPomodoros',
+                          '$totalPomodoros',
                           style: TextStyle(
                             fontSize: 58,
                             fontWeight: FontWeight.w600,
