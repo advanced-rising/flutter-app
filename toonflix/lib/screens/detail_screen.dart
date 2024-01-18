@@ -32,7 +32,9 @@ class _DetailScreenState extends State<DetailScreen> {
     final likedToons = prefs.getStringList('likedToons');
     if (likedToons != null) {
       if (likedToons.contains(widget.id) == true) {
-        isLiked = true;
+        setState(() {
+          isLiked = true;
+        });
       }
     } else {
       prefs.setStringList('likedToons', []);
