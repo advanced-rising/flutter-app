@@ -78,6 +78,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 100),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Sizes.size4),
                   color: _username.isEmpty
                       ? Colors.grey.shade300
                       : Theme.of(context).primaryColor,
