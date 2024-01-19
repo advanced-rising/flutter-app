@@ -9,7 +9,7 @@ import 'package:tiktok/features/authentication/widgets/auth_button.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
-  void onSignTap(BuildContext context) {
+  void _onSignTap(BuildContext context) {
     Navigator.of(context).pop();
   }
 
@@ -43,12 +43,12 @@ class LoginScreen extends StatelessWidget {
               ),
               Gaps.v40,
               AuthButton(
-                  screen: UsernameScreen(),
+                  screen: EmailScreen(),
                   icon: FaIcon(FontAwesomeIcons.user),
                   text: "Use email & password"),
               Gaps.v16,
               AuthButton(
-                  screen: EmailScreen(),
+                  screen: UsernameScreen(),
                   icon: FaIcon(FontAwesomeIcons.apple),
                   text: "Continue with Apple"),
             ],
@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey.shade100,
+        color: Colors.grey.shade50,
         height: Sizes.size80,
         elevation: 2,
         child: Padding(
@@ -72,7 +72,7 @@ class LoginScreen extends StatelessWidget {
               ),
               Gaps.h5,
               GestureDetector(
-                onTap: () => onSignTap(context),
+                onTap: () => _onSignTap(context),
                 child: Text(
                   'Sign up',
                   style: TextStyle(
