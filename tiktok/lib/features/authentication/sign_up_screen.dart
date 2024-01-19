@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/authentication/email_screen.dart';
 import 'package:tiktok/features/authentication/login_screen.dart';
+import 'package:tiktok/features/authentication/username_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -46,10 +48,12 @@ class SignUpScreen extends StatelessWidget {
               ),
               Gaps.v40,
               AuthButton(
+                  screen: UsernameScreen(),
                   icon: FaIcon(FontAwesomeIcons.user),
                   text: "Use email & password"),
               Gaps.v16,
               AuthButton(
+                  screen: EmailScreen(),
                   icon: FaIcon(FontAwesomeIcons.apple),
                   text: "Continue with Apple"),
             ],
