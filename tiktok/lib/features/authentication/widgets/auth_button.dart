@@ -5,7 +5,7 @@ import 'package:tiktok/constants/sizes.dart';
 class AuthButton extends StatelessWidget {
   final String text;
   final FaIcon icon;
-  final StatelessWidget screen;
+  final Widget screen;
 
   const AuthButton({
     Key? key,
