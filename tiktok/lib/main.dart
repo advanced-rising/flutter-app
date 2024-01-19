@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok/constants/gaps.dart';
+import 'package:tiktok/constants/sizes.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -13,10 +15,20 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp(
       title: 'TikTok Clone',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primaryColor: Color(0xFFe9435A),
       ),
-      home: Container(),
+      home: Padding(
+        padding: const EdgeInsets.all(Sizes.size14),
+        child: Container(
+          child: const Column(
+            children: [
+              Text('Hello World!'),
+              Gaps.v20,
+              Text('Hello World!'),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
