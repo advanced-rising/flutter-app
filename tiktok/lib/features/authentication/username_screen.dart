@@ -76,23 +76,26 @@ class _UsernameScreenState extends State<UsernameScreen> {
             FractionallySizedBox(
               widthFactor: 1,
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size16,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Sizes.size4),
                   color: _username.isEmpty
                       ? Colors.grey.shade300
                       : Theme.of(context).primaryColor,
                 ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.size16,
-                ),
-                child: const Text(
-                  'Next',
+                duration: const Duration(milliseconds: 100),
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 100),
                   style: TextStyle(
-                    color: Colors.white,
+                    color: _username.isEmpty ? Colors.grey : Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
-                  textAlign: TextAlign.center,
+                  child: const Text(
+                    'Next',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             )
