@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/authentication/email_screen.dart';
+import 'package:tiktok/features/authentication/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
   const UsernameScreen({Key? key}) : super(key: key);
@@ -22,6 +24,22 @@ class _UsernameScreenState extends State<UsernameScreen> {
         _username = _usernameController.text;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    super.dispose();
+  }
+
+  void onNextTap() {
+    if (_username.isNotEmpty) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const EmailScreen(),
+        ),
+      );
+    }
   }
 
   @override
@@ -73,32 +91,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
               cursorColor: Theme.of(context).primaryColor,
             ),
             Gaps.v16,
-            FractionallySizedBox(
-              widthFactor: 1,
-              child: AnimatedContainer(
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.size16,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Sizes.size4),
-                  color: _username.isEmpty
-                      ? Colors.grey.shade300
-                      : Theme.of(context).primaryColor,
-                ),
-                duration: const Duration(milliseconds: 100),
-                child: AnimatedDefaultTextStyle(
-                  duration: const Duration(milliseconds: 100),
-                  style: TextStyle(
-                    color: _username.isEmpty ? Colors.grey : Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  child: const Text(
-                    'Next',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            )
+            GestureDetector(
+                onTap: onNextTap,
+                child: FormButton(disabled: _username.isEmpty)),
           ],
         ),
       ),
