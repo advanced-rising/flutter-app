@@ -1,10 +1,119 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok/constants/gaps.dart';
+import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/authentication/widgets/form_button.dart';
 
-class PasswordScreen extends StatelessWidget {
-  const PasswordScreen({super.key});
+class PasswordScreen extends StatefulWidget {
+  const PasswordScreen({Key? key}) : super(key: key);
+
+  @override
+  State<PasswordScreen> createState() => _PasswordScreenState();
+}
+
+class _PasswordScreenState extends State<PasswordScreen> {
+  final TextEditingController _passwordController = TextEditingController();
+
+  String _password = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(() {
+      setState(() {
+        _password = _passwordController.text;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  String? _isPasswordValid() {
+    if (_password.isEmpty) {
+      return null;
+    }
+    final regExp = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    if (!regExp.hasMatch(_password)) {
+      return "password is not valid";
+    }
+    return null;
+  }
+
+  void _onScaffoldTap() {
+    FocusScope.of(context).unfocus();
+  }
+
+  void _onSubmit() {
+    if (_password.isNotEmpty && _isPasswordValid() != null) {
+      return;
+    }
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const PasswordScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return GestureDetector(
+      onTap: _onScaffoldTap,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Sign up'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Sizes.size36,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gaps.v40,
+              const Text(
+                'Password?',
+                style: TextStyle(
+                  fontSize: Sizes.size20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Gaps.v16,
+              TextField(
+                controller: _passwordController,
+                onEditingComplete: _onSubmit,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.ac_unit),
+                  suffixIcon: Icon(Icons.ac_unit),
+                  hintText: 'Password',
+                  errorText: _isPasswordValid(),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: Sizes.size1,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                ),
+                cursorColor: Theme.of(context).primaryColor,
+              ),
+              Gaps.v16,
+              GestureDetector(
+                  onTap: _onSubmit,
+                  child: FormButton(
+                      disabled:
+                          _password.isEmpty || _isPasswordValid() != null)),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
