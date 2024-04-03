@@ -39,12 +39,19 @@ class _PasswordScreenState extends State<PasswordScreen> {
     return _password.isNotEmpty && _password.length > 8;
   }
 
+  bool _isLettersValid() {
+    // 유효성 검사 메소드
+    final regExp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]");
+    return _password.isNotEmpty && regExp.hasMatch(_password);
+  }
+
   void _onScaffoldTap() {
     FocusScope.of(context).unfocus();
   }
 
   void _onSubmit() {
     if (!_isPasswordValid()) return;
+    if (!_isLettersValid()) return;
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -151,6 +158,21 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   ),
                   Gaps.h5,
                   const Text("8 to 20 characters")
+                ],
+              ),
+              Gaps.v2,
+              Row(
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.circleCheck,
+                    size: Sizes.size20,
+                    color:
+                        _isLettersValid() ? Colors.green : Colors.grey.shade400,
+                  ),
+                  Gaps.h5,
+                  const Text(
+                    "Letters, number, and special characters",
+                  )
                 ],
               ),
               Gaps.v28,
