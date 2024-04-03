@@ -5,27 +5,16 @@ import 'package:tiktok/constants/sizes.dart';
 class AuthButton extends StatelessWidget {
   final String text;
   final FaIcon icon;
-  final Widget screen;
 
   const AuthButton({
     Key? key,
     required this.text,
     required this.icon,
-    required this.screen,
   }) : super(key: key);
-
-  void _onTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => screen,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _onTap(context),
       child: FractionallySizedBox(
         widthFactor: 1,
         child: Container(
